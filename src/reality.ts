@@ -34,7 +34,7 @@ const reality: AnyEvent[] = [
         now: new Date("2020-08-20T00:00:00")
     },
     {
-        type: EventType.USER_UPDATE,
+        type: EventType.PERSON_UPDATE,
         personID: "lk",
         personData: {
             name: "Leonhard Kuboschek",

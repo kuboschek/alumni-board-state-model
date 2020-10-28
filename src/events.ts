@@ -4,8 +4,8 @@ enum EventType {
     APPOINTED,
     VOTED_OUT,
     DECEASED,
-    USER_UPDATE,
-    USER_DELETE,
+    PERSON_UPDATE,
+    PERSON_DELETE,
     TIME
 }
 
@@ -49,13 +49,14 @@ interface Deceased {
 }
 
 interface PersonUpdate  {
-    type: EventType.USER_UPDATE,
+    type: EventType.PERSON_UPDATE
     personID: PersonID
     personData: PersonData
 }
 
 interface PersonDelete  {
-    type: EventType.USER_DELETE,
+    type: EventType.PERSON_DELETE
+    personID: PersonID
 }
 
 interface Time {
