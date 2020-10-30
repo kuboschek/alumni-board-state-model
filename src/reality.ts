@@ -27,6 +27,8 @@ import { AnyEvent, EventType, PersonUpdate, PersonDelete } from "./events";
 
     So in this sense, the whole world bears your signature.
     It would not be the same world if it weren't for you.
+
+        - Alan Watts
 */
 const reality: AnyEvent[] = [
     {
