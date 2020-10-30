@@ -1,6 +1,8 @@
 import { AnyEvent, EventType } from "./events";
 import reality from "./reality";
 import { BoardMembership, State } from "./state";
+import * as moment from 'moment';
+import { pastMembersByUser } from "./views";
 
 // We all start out with nothing
 const initialState: State = {
@@ -19,6 +21,24 @@ function reduceEvents(events: AnyEvent[], initial: State = initialState): State 
         switch (event.type) {
             case EventType.TIME:
                 state.currentTime = event.now
+                const now = moment(state.currentTime)
+
+                // Terms of board members last at most 3 years
+                state.board = state.board.filter(({from, person, role}) => {
+                    if(now.diff(from, 'years') >= 3) {
+                        state.pastBoard.push({
+                            from,
+                            to: state.currentTime,
+                            person,
+                            role
+                        })
+
+                        return false
+                    }
+
+                    return true
+                })
+
                 break
 
             case EventType.PERSON_UPDATE:
@@ -74,4 +94,5 @@ function reduceEvents(events: AnyEvent[], initial: State = initialState): State 
     return state
 }
 
-console.log(reduceEvents(reality))
+export default reduceEvents(reality)
+export * as views from './views'
