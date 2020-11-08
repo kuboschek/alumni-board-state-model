@@ -14,7 +14,7 @@ type PersonRole = string
 
 interface PersonData {
     name: string
-    photoURL: string
+    photoURL?: string
     meta?: {
         email?: string
         facebook?: string
@@ -23,7 +23,7 @@ interface PersonData {
         linkedin?: string
         github?: string
     }
-    description: string
+    description?: string
 }
 
 interface Elected {
