@@ -1,4 +1,5 @@
 import { AnyEvent, EventType, PersonUpdate, PersonDelete } from "./events";
+import { BoardRole } from "./roles";
 
 /*
     Everything that there is, implies everything else
@@ -40,8 +41,8 @@ const reality: AnyEvent[] = [
         personID: "lk",
         personData: {
             name: "Leonhard Kuboschek",
-            photoURL: "media/board/Leonhard_Kuboschek.jpg",
-            meta: {
+            photo: "media/board/Leonhard_Kuboschek.jpg",
+            socials: {
                 email: "leo@jacobs-alumni.de",
                 instagram: "https://www.instagram.com/myinstaisleo/",
                 twitter: "https://twitter.com/kuboschek",
@@ -54,7 +55,7 @@ const reality: AnyEvent[] = [
     {
         type: EventType.APPOINTED,
         personID: "lk",
-        role: "Treasurer"
+        role: BoardRole.Treasurer
     }
 ]
 

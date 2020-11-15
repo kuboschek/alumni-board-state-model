@@ -1,23 +1,21 @@
-import { AnyEvent, EventType } from "./events";
-import reality from "./reality";
+import { AnyEvent, EventType, getTimePoints } from "./events";
 import { BoardMembership, State } from "./state";
 import * as moment from 'moment';
-import { pastMembersByUser } from "./views";
-
-// We all start out with nothing
-const initialState: State = {
-    pastBoard: [],
-    board: [],
-    persons: {},
-    currentTime: new Date(0)
-}
-
-function reduceEvents(events: AnyEvent[], initial: State = initialState): State {
-    let state = initial
 
 
+function reduceEvents(events: AnyEvent[], initial?: State, stopTime?: Date): State {
+    let state = initial || {
+        pastBoard: [],
+        board: [],
+        persons: {},
+        currentTime: new Date(0)
+    }
 
     events.forEach(event => {
+        if(stopTime && state.currentTime > stopTime) {
+            return
+        }
+
         switch (event.type) {
             case EventType.TIME:
                 state.currentTime = event.now
@@ -88,11 +86,14 @@ function reduceEvents(events: AnyEvent[], initial: State = initialState): State 
 
                 break
         }
-    });
+    })
 
 
     return state
 }
 
-export default reduceEvents(reality)
+export default reduceEvents
 export * as views from './views'
+export * as reality from './reality'
+
+export { getTimePoints } from './events'
