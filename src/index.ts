@@ -82,7 +82,7 @@ function reduceEvents(events: AnyEvent[], initial?: State, stopTime?: Date): Sta
                 }
 
                 // Remove voted out person
-                state.board = state.board.filter(({ person }) => person === event.personID)
+                state.board = state.board.filter(({ person }) => person !== event.personID)
 
                 break
         }
