@@ -1,25 +1,21 @@
-import { AnyEvent, EventType } from "./events";
-import reality from "./reality";
+import { AnyEvent, EventType, getTimePoints } from "./events";
 import { BoardMembership, State } from "./state";
 import * as moment from 'moment';
-import { pastMembersByUser } from "./views";
-import oldBoardData from './oldBoard';
-import extract from "./extract";
-
-// We all start out with nothing
-const initialState: State = {
-    pastBoard: [],
-    board: [],
-    persons: {},
-    currentTime: new Date(0)
-}
-
-function reduceEvents(events: AnyEvent[], initial: State = initialState): State {
-    let state = initial
 
 
+function reduceEvents(events: AnyEvent[], initial?: State, stopTime?: Date): State {
+    let state = initial || {
+        pastBoard: [],
+        board: [],
+        persons: {},
+        currentTime: new Date(0)
+    }
 
     events.forEach(event => {
+        if(stopTime && state.currentTime > stopTime) {
+            return
+        }
+
         switch (event.type) {
             case EventType.TIME:
                 state.currentTime = event.now
@@ -90,19 +86,14 @@ function reduceEvents(events: AnyEvent[], initial: State = initialState): State 
 
                 break
         }
-    });
+    })
 
 
     return state
 }
 
-
-// The code below synthesizes events from historic data found on https://github.com/JacobsAlumni/jacobs-alumni.de/blob/main/_data/oldmembers.yml
-// For the purposes of this module a copy is in old-board.json in this repository
-const virtualReality = extract(oldBoardData)
-
-const fullReality = new Array(...virtualReality, ...reality)
-
-
-export default reduceEvents(fullReality)
+export default reduceEvents
 export * as views from './views'
+export * as reality from './reality'
+
+export { getTimePoints } from './events'

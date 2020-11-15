@@ -1,3 +1,4 @@
+import { BoardRole } from "./roles"
 
 enum EventType {
     ELECTED,
@@ -10,12 +11,12 @@ enum EventType {
 }
 
 type PersonID = string
-type PersonRole = string
+type PersonRole = BoardRole
 
-interface PersonData {
+export interface PersonData {
     name: string
-    photoURL?: string
-    meta?: {
+    photo?: string | true
+    socials?: {
         email?: string
         facebook?: string
         instagram?: string
@@ -25,6 +26,8 @@ interface PersonData {
     }
     description?: string
 }
+
+
 
 interface Elected {
     type: EventType.ELECTED
@@ -75,9 +78,13 @@ export {
     Deceased,
     PersonUpdate,
     PersonDelete,
-    PersonData,
     PersonID,
     PersonRole,
     EventType,
     Time
+}
+
+export function getTimePoints(allEvent: AnyEvent[]): Date[] {
+    const events = allEvent.filter(({type}) => type === EventType.TIME)
+    return (events as Time[]).map(({now}) => now)
 }
