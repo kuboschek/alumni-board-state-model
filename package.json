@@ -5,7 +5,7 @@
     "name": "Leonhard Kuboschek",
     "url": "https://kuboschek.me"
   },
-  "version": "0.0.1",
+  "version": "0.0.4",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "tsc --declaration --declarationMap",
+    "prepare": "tsc --declaration --declarationMap",
     "start": "node dist/index.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist\""
   },

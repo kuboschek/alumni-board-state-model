@@ -13,7 +13,7 @@ enum EventType {
 type PersonID = string
 type PersonRole = BoardRole
 
-export interface PersonData {
+interface PersonData {
     name: string
     photo?: string | true
     socials?: {
