@@ -381,7 +381,7 @@ const reality: AnyEvent[] = [
     {
         type: EventType.ELECTED,
         personID: "re",
-         BoardRole.AssessorSpecialProjects
+        role: BoardRole.AssessorSpecialProjects
     },
     {
         type: EventType.TIME,
